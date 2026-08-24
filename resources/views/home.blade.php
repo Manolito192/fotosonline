@@ -30,10 +30,10 @@
                        class="group relative rounded-xl overflow-hidden bg-white shadow-sm ring-1 ring-gray-200 hover:shadow-md transition">
                         <div class="p-6">
                             <h3 class="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition">
-                                {{ $category->name() }}
+                                {{ $category->localizedName() }}
                             </h3>
                             @if ($category->description())
-                                <p class="mt-2 text-sm text-gray-500 line-clamp-2">{{ $category->description() }}</p>
+                                <p class="mt-2 text-sm text-gray-500 line-clamp-2">{{ $category->localizedDescription() }}</p>
                             @endif
                             <p class="mt-4 text-sm font-medium text-indigo-600">
                                 {{ trans_choice('{0} No photos|[1] :count photo|[2,*] :count photos', $category->photos_count, ['count' => $category->photos_count]) }}

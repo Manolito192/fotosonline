@@ -6,7 +6,7 @@
                 @if ($photo->category)
                     <span class="mx-2">/</span>
                     <a href="{{ route('photos.index', ['category' => $photo->category->slug]) }}" class="hover:text-indigo-600">
-                        {{ $photo->category->name() }}
+                        {{ $photo->category->localizedName() }}
                     </a>
                 @endif
                 <span class="mx-2">/</span>
@@ -22,7 +22,7 @@
                     <h1 class="text-3xl font-bold text-gray-900">{{ $photo->title }}</h1>
 
                     @if ($photo->category)
-                        <p class="mt-2 text-sm text-indigo-600 font-medium">{{ $photo->category->name() }}</p>
+                        <p class="mt-2 text-sm text-indigo-600 font-medium">{{ $photo->category->localizedName() }}</p>
                     @endif
 
                     <p class="mt-4 text-2xl font-semibold text-gray-900">{{ $photo->formatted_price }}</p>

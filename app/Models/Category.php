@@ -23,12 +23,12 @@ class Category extends Model
         return 'slug';
     }
 
-    public function name(): string
+    public function localizedName(): string
     {
         return app()->getLocale() === 'es' ? $this->name_es : $this->name_en;
     }
 
-    public function description(): ?string
+    public function localizedDescription(): ?string
     {
         return app()->getLocale() === 'es' ? $this->description_es : $this->description_en;
     }

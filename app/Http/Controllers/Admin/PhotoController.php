@@ -47,7 +47,7 @@ class PhotoController extends Controller
             'slug' => $validated['slug'],
             'description' => $validated['description'] ?? null,
             'price' => $validated['price'],
-            'image_path' => $paths['watermarked'],
+            'image_path' => $paths['preview'],
             'original_path' => $paths['private'],
             'is_published' => $request->boolean('is_published'),
             'meta_title' => $validated['meta_title'] ?? null,
@@ -86,7 +86,7 @@ class PhotoController extends Controller
             'description' => $validated['description'] ?? null,
             'price' => $validated['price'],
             'is_published' => $request->boolean('is_published'),
-            'image_path' => $paths['watermarked'],
+            'image_path' => $paths['preview'],
             'original_path' => $paths['private'],
             'meta_title' => $validated['meta_title'] ?? null,
             'meta_description' => $validated['meta_description'] ?? null,
@@ -149,16 +149,9 @@ class PhotoController extends Controller
 
         $manager = new ImageManager(new Driver());
 
-        // Public preview (1920px, no watermark)
+        // Public preview (1920px)
         $image = $manager->decode($file->getPathname());
         $image->scaleDown(width: 1920);
-        $encoded = $image->encodeUsingFileExtension('jpg', quality: 85);
-        Storage::disk('public')->put('photos/preview/public-'.$name.'.jpg', $encoded->toString());
-
-        // Watermarked preview (1920px, with watermark)
-        $image = $manager->decode($file->getPathname());
-        $image->scaleDown(width: 1920);
-        $this->applyWatermark($image);
         $encoded = $image->encodeUsingFileExtension('jpg', quality: 85);
         Storage::disk('public')->put('photos/'.$name.'.jpg', $encoded->toString());
 
@@ -168,38 +161,9 @@ class PhotoController extends Controller
         }
 
         return [
-            'watermarked' => 'photos/'.$name.'.jpg',
+            'preview' => 'photos/'.$name.'.jpg',
             'private' => $privatePath,
         ];
-    }
-
-    private function applyWatermark($image): void
-    {
-        $width = $image->width();
-        $height = $image->height();
-
-        $fontSize = max(14, (int) ($width / 30));
-        $text = 'FOTOSONLINE';
-
-        $fontPath = 'C:/Windows/Fonts/arial.ttf';
-        if (! file_exists($fontPath)) {
-            $fontPath = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf';
-        }
-
-        $spacingX = max((int) ($fontSize * strlen($text) * 0.6 + 100), 300);
-        $spacingY = max($fontSize * 4, 120);
-
-        $gd = $image->core()->native();
-
-        $color = imagecolorallocatealpha($gd, 255, 255, 255, 40);
-
-        for ($x = -$width; $x < $width * 2; $x += $spacingX) {
-            for ($y = -$height; $y < $height * 2; $y += $spacingY) {
-                if (file_exists($fontPath)) {
-                    imagettftext($gd, $fontSize, -30, $x, $y, $color, $fontPath, $text);
-                }
-            }
-        }
     }
 
     private function extractExif($file): ?array

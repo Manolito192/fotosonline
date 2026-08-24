@@ -26,7 +26,7 @@
                 @foreach ($categories as $category)
                     <a href="{{ route('photos.index', array_merge(request()->query(), ['category' => $category->slug])) }}"
                        class="px-3 py-1.5 text-sm font-medium rounded-full transition {{ request('category') === $category->slug ? 'bg-indigo-600 text-white' : 'bg-white text-gray-700 ring-1 ring-gray-300 hover:bg-gray-100' }}">
-                        {{ $category->name() }}
+                        {{ $category->localizedName() }}
                     </a>
                 @endforeach
             </div>
@@ -79,7 +79,7 @@
                             <div class="flex items-center justify-between">
                                 <p class="text-sm text-gray-500">{{ $photo->formatted_price }}</p>
                                 @if ($photo->category)
-                                    <p class="text-xs text-indigo-600">{{ $photo->category->name() }}</p>
+                                    <p class="text-xs text-indigo-600">{{ $photo->category->localizedName() }}</p>
                                 @endif
                             </div>
                         </a>

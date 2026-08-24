@@ -30,7 +30,7 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ $photo->title }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-500">{{ $photo->category?->name() ?? '—' }}</td>
+                            <td class="px-6 py-4 text-sm text-gray-500">{{ $photo->category?->localizedName() ?? '—' }}</td>
                             <td class="px-6 py-4 text-sm text-gray-900">{{ $photo->formatted_price }}</td>
                             <td class="px-6 py-4">
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $photo->is_published ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600' }}">
