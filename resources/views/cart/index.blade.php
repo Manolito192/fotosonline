@@ -79,7 +79,7 @@
             </div>
 
             <div class="mt-6">
-                <a href="{{ route('checkout') }}" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition">{{ __('Checkout') }}</a>
+                <a href="{{ route('checkout.index') }}" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition">{{ __('Checkout') }}</a>
             </div>
             <div class="mt-3 text-center">
                 <a href="{{ route('photos.index') }}" class="text-blue-600 hover:underline text-sm">{{ __('Continue shopping') }}</a>
