@@ -32,7 +32,7 @@
                             <h3 class="text-lg font-semibold text-gray-900 group-hover:text-indigo-600 transition">
                                 {{ $category->localizedName() }}
                             </h3>
-                            @if ($category->description())
+                            @if ($category->localizedDescription())
                                 <p class="mt-2 text-sm text-gray-500 line-clamp-2">{{ $category->localizedDescription() }}</p>
                             @endif
                             <p class="mt-4 text-sm font-medium text-indigo-600">
